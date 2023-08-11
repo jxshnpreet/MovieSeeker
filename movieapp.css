@@ -15,7 +15,10 @@
 .row {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+}
+
+.row img {
+    height: 70px;
 }
 
 .box {

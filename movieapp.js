@@ -1,20 +1,20 @@
-const APIURL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=943695765e13b0d3defc9759caa9f210&page=1";
-const IMGPATH = "https://image.tmdb.org/t/p/w1280";
-const SEARCHAPI = "https://api.themoviedb.org/3/search/movie?&api_key=943695765e13b0d3defc9759caa9f210&query=";
+const url = "https://api.themoviedb.org/3/discover/movie?sort_by=vote_count.desc&api_key=943695765e13b0d3defc9759caa9f210&page=1";
+const imgPath = "https://image.tmdb.org/t/p/w1280";
+const searchApi = "https://api.themoviedb.org/3/search/movie?&api_key=943695765e13b0d3defc9759caa9f210&query=";
 const movieBox = document.querySelector("#movie-box")
 const getMovies = async (url) => {
     const response = await fetch(url)
     const data = await response.json()
     showMovies(data)
 }
-getMovies(APIURL);
+getMovies(url);
 
 
 const showMovies = (data) => {
     movieBox.innerHTML = "";
     data.results.forEach(
         (result) => {
-            const imagePath = result.poster_path === null ? "./assets/missing.jpg" : IMGPATH + result.poster_path;
+            const imagePath = result.poster_path === null ? "./assets/missing.jpg" : imgPath + result.poster_path;
             
             const box = document.createElement("div")
             box.classList.add("box")
@@ -25,7 +25,7 @@ const showMovies = (data) => {
                         <h2> ${result.original_title}  </h2>
                         <span> ${result.vote_average} <span>
                     </div>
-                    <h3>Overview:</h3>
+                    <h3>Description:</h3>
                     <p> 
                         ${result.overview}
                     </p>
@@ -40,9 +40,9 @@ document.querySelector("#search").addEventListener(
     "keyup",
     function (event) {
         if (event.target.value != "") {
-            getMovies(SEARCHAPI + event.target.value)
+            getMovies(searchApi + event.target.value)
         } else {
-            getMovies(APIURL);
+            getMovies(url);
         }
     }
 )
